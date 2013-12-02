@@ -5,10 +5,10 @@ ODE::~ODE()
 {
 }
 
-double ODE::first_derivative(double y, double t)
+double ODE::first_derivative(double y, double x)
 {
     (void)y;
-    (void)t;
+    (void)x;
     return 0;
 }
 
@@ -17,52 +17,77 @@ double ODE::initial_value()
     return 0;
 }
 
-double ODE::exact_solution(double t)
+double ODE::exact_solution(double x)
 {
-    (void)t;
+    (void)x;
     return 0;
 }
 
-/* ****      Polynomial      **** */
+
+/* ****      Electric Field     **** */
 
 
-PolynomialODE::PolynomialODE(double t0)
+ElectricFieldODE::ElectricFieldODE(double x0, double h)
+    :
+    h(h)
 {
-    this->t0 = t0;
+    this->x0 = x0;
 }
-double PolynomialODE::first_derivative(double y, double t)
+double ElectricFieldODE::first_derivative(double y, double x)
 {
     (void)y;
-    return 3 * t * t - 6 * t + 1;
+    if (x >= 1.0 && x <= 2.0)
+        return h;
+    else if (x > 2.0 && x <= 3.0)
+        return -h;
+    else
+        return 0.0;
 }
     
-double PolynomialODE::initial_value()
+double ElectricFieldODE::initial_value()
 {
-    return exact_solution(t0);
+    return 0.0;
 }
 
-double PolynomialODE::exact_solution(double t)
+double ElectricFieldODE::exact_solution(double x)
 {
-    return 1 + t - 3 * t * t + t * t * t;
+    if (x >= 1.0 && x <= 2.0)
+        return h * x - h;
+    else if (x > 2.0 && x <= 3.0)
+        return -h * x + 3 * h;
+    else
+        return 0.0;
 }
 
-/* ****     Exponential     **** */
 
-ExponentialODE::ExponentialODE(double t0)
+/* ****     Potential ODE       **** */
+
+PotentialODE::PotentialODE(double x0, double h, std::vector<double> E_field, double E_field_dx)
+    :
+    h(h),
+    dx(E_field_dx)
 {
-    this->t0 = t0;
+    this->E_field = E_field;
+    this->x0 = x0;
 }
 
-double ExponentialODE::first_derivative(double y, double t)
+double PotentialODE::first_derivative(double y, double x)
 {
     (void)y;
-    return exp(t);
+    return - E_field[x/dx];
 }
-double ExponentialODE::initial_value()
+double PotentialODE::initial_value()
 {
-    return exact_solution(t0);
+    return 0.0;
 }
-double ExponentialODE::exact_solution(double t)
+double PotentialODE::exact_solution(double x)
 {
-    return exp(t);
+    if (x < 1.0)
+        return 0.0;
+    else if (x >= 1.0 && x <= 2.0)
+        return - 0.5 * h * x * x + h * x - 0.5 * h;
+    else if (x > 2.0 && x <= 3.0)
+        return 0.5 * h * x * x - 3 * h * x + 3.5 * h;
+    else
+        return  exact_solution(3);
 }

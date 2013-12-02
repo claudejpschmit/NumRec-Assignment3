@@ -1,38 +1,42 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 class ODE {
         
 public:
     virtual ~ODE();
-    virtual double first_derivative(double y, double t);
+    virtual double first_derivative(double y, double x);
     virtual double initial_value();
-    virtual double exact_solution(double t);
+    virtual double exact_solution(double x);
 
 protected:
-    double t0;
+    double x0;
 };
 
-class PolynomialODE : public ODE {
+class ElectricFieldODE : public ODE {
+
+public:
+    ElectricFieldODE(double x0, double h);
+    double first_derivative(double y, double x);
+    double initial_value();
+    double exact_solution(double x);
+private:
+    double h;
+};
+
+class PotentialODE : public ODE {
+
+public:
+    PotentialODE(double x0, double h, std::vector<double> E_field, double E_field_dx);
+    double first_derivative(double y, double x);
+    double initial_value();
+    double exact_solution(double x);
     
-public:
-    PolynomialODE(double t0);
-
-    double first_derivative(double y, double t);
-    double initial_value();
-    double exact_solution(double t);
-
+private:
+    double h;
+    double dx;
+    std::vector<double> E_field;
 };
 
-class ExponentialODE : public ODE {
-
-public:
-    ExponentialODE(double t0);
-
-    double first_derivative(double y, double t);
-    double initial_value();
-    double exact_solution(double t);
-
-
-};
