@@ -32,8 +32,8 @@ set(LIBS ${LIBS} ${FFTW_LIBRARIES})
 #include_directories(${ROOT_INCLUDE_DIRS})
 #set(LIBS ${LIBS} ${ROOT_LIBRARIES})
 
-add_executable(Finder src/Main.cpp src/ODEs.cpp src/ODE_Solver.cpp ${HEADER_FILES})
-target_link_libraries(Finder -lm ${Boost_LIBRARIES}
+add_executable(Solver src/Main.cpp src/ODEs.cpp src/ODE_Solver.cpp ${HEADER_FILES})
+target_link_libraries(Solver -lm ${Boost_LIBRARIES}
     ${ARMADILLO_LIBRARIES} ${LIBS})
 #target_link_libraries(Finder -lm ${ROOT_LIBRARIES})
 
@@ -56,4 +56,4 @@ else()
     message(status "Setting MSVC flags")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHc-")
 endif()
-install(TARGETS Finder DESTINATION ${CMAKE_BINARY_DIR}/lib)
+install(TARGETS Solver DESTINATION ${CMAKE_BINARY_DIR}/lib)

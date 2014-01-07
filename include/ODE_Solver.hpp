@@ -65,6 +65,12 @@ public:
 class MRKMethod : public StepEngine {
     
 public:
+    /** \brief Constructor for an object to solve a given ODE via
+     *      the Midpoint Runge-Kutta Method.
+     *  \param dt step size for the method
+     *  \param ode ODE that is to be solved by the Method
+     *  \param t0 initial time
+     */
     MRKMethod(double dt, ODE* ode, double t0);
     double step();
 
@@ -78,6 +84,12 @@ public:
 class FORKMethod : public StepEngine {
     
 public:
+    /** \brief Constructor for an object to solve a given ODE via
+     *      the Fourth Order Runge-Kutta Method.
+     *  \param dt step size for the method
+     *  \param ode ODE that is to be solved by the Method
+     *  \param t0 initial time
+     */
     FORKMethod(double dt, ODE* ode, double t0);
     double step();
 

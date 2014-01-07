@@ -35,7 +35,9 @@ ElectricFieldODE::ElectricFieldODE(double x0, double h)
 }
 double ElectricFieldODE::first_derivative(double y, double x)
 {
+    // unused parameter. 
     (void)y;
+
     if (x >= 1.0 && x <= 2.0)
         return h;
     else if (x > 2.0 && x <= 3.0)
