@@ -26,9 +26,9 @@ using namespace std;
 
 int main( ) {
 
-    ElectricFieldODE E_ODE(X0, H);
+    PNJUNCTION::ElectricFieldODE E_ODE(X0, H);
 
-    FORKMethod F_method_efield(DX, &E_ODE, X0);
+    PNJUNCTION::FORKMethod F_method_efield(DX, &E_ODE, X0);
     ofstream solution("solution_electric.txt");
     solution << X0 << " " << E_ODE.initial_value() << endl;
 
@@ -41,8 +41,8 @@ int main( ) {
     }
     solution.close();
 
-    PotentialODE P_ODE(X0, H, efield, DX);
-    FORKMethod F_method_potential(DX, &P_ODE, X0);
+    PNJUNCTION::PotentialODE P_ODE(X0, H, efield, DX);
+    PNJUNCTION::FORKMethod F_method_potential(DX, &P_ODE, X0);
 
     ofstream solutionP("solution_potential.txt");
     solutionP << X0 << " " << P_ODE.initial_value() << endl;
@@ -98,7 +98,7 @@ int main( ) {
     fftw_execute(p); /* repeat as needed */
 
     //...
-    
+
     cout << " Results of fftw run " << endl ;
     for(int n=0; n < N ; ++n) { 
         cout << fixed ;
