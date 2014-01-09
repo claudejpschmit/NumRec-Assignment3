@@ -8,11 +8,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <sstream>
-#include <iomanip>
 #include <fftw3.h>
-
-
-typedef unsigned int uint ;
 
 //Convenient variable definitions
 #define XMAX 4.0
@@ -71,7 +67,8 @@ int main( ) {
     solutionEE.close();
 
 
-    //  ********* Fourier Transform analysis ********** //
+    /* ****     Fourier Transform analysis      **** */
+
     // N bins
     int N=500 ;
     fftw_complex *rho, *rho_ft, *e_ft, *e;
@@ -93,8 +90,7 @@ int main( ) {
     }
 
     //Fourier transforming the charge density
-    fftw_execute(p); /* repeat as needed */
-
+    fftw_execute(p);  
 
     // divide rho_ft by ik_n
     for(int n=0; n < N ; ++n) { 
@@ -110,9 +106,12 @@ int main( ) {
 
     // writing the normalised values to file
     for(int n=0; n < N ; ++n) { 
-        fft << n * (XMAX/(double)N) << " " << 
-            (H/(((e[N/2][0]/(double)N) - (e[0][0]/(double)N)))) * 
-            ((e[n][0]/(double)N) - (e[0][0]/(double)N)) << endl;
+        // normalisation
+        double norm = H/(((e[N/2][0]/(double)N) - (e[0][0]/(double)N)));
+        // y-shift
+        double shift = e[0][0]/(double)N;
+
+        fft << n * (XMAX/(double)N) << " " << norm * ((e[n][0]/(double)N) - shift) << endl;
     }
     fft.close(); 
 
@@ -120,8 +119,6 @@ int main( ) {
     fftw_destroy_plan(p);
     fftw_free(rho); fftw_free(rho_ft);
 
-
     return 0;
-
 
 }

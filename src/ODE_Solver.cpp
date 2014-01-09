@@ -2,6 +2,8 @@
 
 namespace PNJUNCTION {
 
+    /* ****     StepEngine Scaffold     **** */
+
     StepEngine::~StepEngine()
     {
 
@@ -21,6 +23,7 @@ namespace PNJUNCTION {
         this->ode = ode;    
         y_n = ode->initial_value();
     }
+    
     double EulerMethod::step()
     {
         y_n += dt * ode->first_derivative(y_n, tn);
@@ -38,7 +41,6 @@ namespace PNJUNCTION {
         y_n = ode->initial_value();
     }
 
-
     double MRKMethod::step()
     {
         double t_mid = tn + dt / 2.0;
@@ -48,6 +50,7 @@ namespace PNJUNCTION {
         tn += dt;
         return y_n;
     }
+
     /* ****           Fourth Order Runge-Kutta Method          **** */
 
     FORKMethod::FORKMethod(double dt, ODE* ode, double t0)

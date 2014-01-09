@@ -3,12 +3,14 @@
 
 namespace PNJUNCTION {
 
+    /* ****     ODE Scaffold    **** */
     ODE::~ODE()
     {
     }
 
     double ODE::first_derivative(double y, double x)
     {
+        // Shuts warnings about unused parameters
         (void)y;
         (void)x;
         return 0;
@@ -21,6 +23,7 @@ namespace PNJUNCTION {
 
     double ODE::exact_solution(double x)
     {
+        // Shuts warnings about unused parameters
         (void)x;
         return 0;
     }
@@ -35,9 +38,10 @@ namespace PNJUNCTION {
     {
         this->x0 = x0;
     }
+
     double ElectricFieldODE::first_derivative(double y, double x)
     {
-        // unused parameter. 
+        // Shuts warnings about unused parameter. 
         (void)y;
 
         if (x >= 1.0 && x <= 2.0)
@@ -77,13 +81,16 @@ namespace PNJUNCTION {
 
     double PotentialODE::first_derivative(double y, double x)
     {
+        // Shuts warnings about unused parameter. 
         (void)y;
         return - E_field[x/dx];
     }
+    
     double PotentialODE::initial_value()
     {
         return 0.0;
     }
+    
     double PotentialODE::exact_solution(double x)
     {
         if (x < 1.0)

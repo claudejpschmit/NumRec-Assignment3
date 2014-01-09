@@ -41,7 +41,8 @@ namespace PNJUNCTION {
 
     /** \brief Euler Method 
      *
-     *
+     *  Simple first order method to solve ODEs using interpolation. 
+     *  The slope at each point is taken to optain the result.
      */
 
     class EulerMethod : public StepEngine {
@@ -61,7 +62,9 @@ namespace PNJUNCTION {
 
     /** \brief Midpoint Runge-Kutta Method
      *
-     *
+     *  Second order method to solve ODEs. 
+     *  Its algorithm is based on the slope at the midpoint of a step interval.
+     *  
      */
 
     class MRKMethod : public StepEngine {
@@ -74,12 +77,16 @@ namespace PNJUNCTION {
              *  \param t0 initial time
              */
             MRKMethod(double dt, ODE* ode, double t0);
+
             double step();
 
     };
 
     /** \brief Fourth Order Runge-Kutta Method 
      *
+     *  Fourth Order method to solve ODEs. 
+     *  Its algorithm is based on the slope at the beginning of the step inteval,
+     *  two slope estimates at the midpoint and the slope at the end of this interval.
      *
      */
 
@@ -93,6 +100,7 @@ namespace PNJUNCTION {
              *  \param t0 initial time
              */
             FORKMethod(double dt, ODE* ode, double t0);
+
             double step();
 
     };
